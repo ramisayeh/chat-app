@@ -1,13 +1,23 @@
 import "./App.css";
-import Register from './comps/register'
-import Login from "./comps/login";
+import SignUp from "./comps/register.jsx";
+import SignIn from "./comps/login";
+import Dashboard from "./comps/dashboard";
 import "antd/dist/antd.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
+  const user = null;
+
   return (
-    <div className="App">
-      {/* <Login /> */}
-      <Register/>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/signUp" component={SignUp}>
+          <SignUp />
+        </Route>
+        <Route exact path="/signIn" component={SignIn}>
+          <SignIn />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
