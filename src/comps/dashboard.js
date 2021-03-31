@@ -1,19 +1,13 @@
-import React, { PureComponent } from 'react'
+import React from "react";
+import { ChatEngine } from "react-chat-engine";
 
-class Dashboard extends PureComponent {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            
-        }
-    }
-
-    render() {
-        return (
-            <div>yup</div>
-        )
-    }
+export default function Dashboard() {
+  return (
+    <ChatEngine
+      height="100vh"
+      userName="rami"
+      userSecret="123"
+      projectID="39edf2e6-072d-4dbb-abe7-bf758bab3b54"
+    />
+  );
 }
-
-export default Dashboard

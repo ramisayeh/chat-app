@@ -40,7 +40,7 @@ function Register() {
             value={displayName}
             placeholder="E.g: Faruq"
             id="displayName"
-            onChange={event => onChangeHandler(event)} />
+            onChange={event => onChangeHandler(event)}  />
               <label>Display Name:</label>
             </div>
             <div className="user-box">

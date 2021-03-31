@@ -16,6 +16,9 @@ function App() {
         <Route exact path="/signIn" component={SignIn}>
           <SignIn />
         </Route>
+        <Route exact path="/Dashboard" component={Dashboard}>
+          <Dashboard />
+        </Route>
       </Switch>
     </Router>
   );
