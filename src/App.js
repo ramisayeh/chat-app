@@ -1,7 +1,7 @@
 import "./App.css";
 import SignUp from "./comps/register.jsx";
 import SignIn from "./comps/login";
-import Dashboard from "./comps/dashboard";
+import Dashboard from "./comps/dashboard.jsx";
 import "antd/dist/antd.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
