@@ -5,8 +5,8 @@ export default function Dashboard() {
   return (
     <ChatEngine
 			height='100vh'
-			userName='rami'
-			userSecret='123'
+			userName={localStorage.getItem('username')}
+			userSecret={localStorage.getItem('password')}
 			projectID='589e180c-73a9-42e1-8c9e-61676d54116d'
 		/>
   );

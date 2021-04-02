@@ -1,65 +1,78 @@
 import React, { useState } from "react";
 import sample from "../assets/video.mp4";
 import "./login.css";
-import { Link } from "react-router-dom";
+
+import axios from "axios";
+
+const projectID = "589e180c-73a9-42e1-8c9e-61676d54116d";
+
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const signInWithEmailAndPasswordHandler = (event, email, password) => {
-    event.preventDefault();
-  };
+  const [error, setError] = useState("");
 
-  const onChangeHandler = (event) => {
-    const { name, value } = event.currentTarget;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (name === "userEmail") {
-      setEmail(value);
-    } else if (name === "userPassword") {
-      setPassword(value);
+    const authObject = {
+      "Project-ID": projectID,
+      "User-Name": username,
+      "User-Secret": password,
+    };
+
+    try {
+      await axios.get("https://api.chatengine.io/users/me/", {
+        headers: authObject,
+      });
+
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+
+      window.location.reload();
+      setError("");
+    } catch (err) {
+      setError("Oops, incorrect credentials.");
     }
   };
   return (
     <div>
-      <video className="videoTag" style={{zIndex: -1}}  autoPlay loop muted>
+      <video className="videoTag" style={{ zIndex: -1 }} autoPlay loop muted>
         <source src={sample} type="video/mp4" />
       </video>
       <div id="tsparticles"></div>
       <div className="login-box">
         <h2>Login</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="user-box">
             <input
-              type="email"
-              name="userEmail"
-              value={email}
-              placeholder="E.g: example123@gmail.com"
-              onChange={(event) => onChangeHandler(event)}
-              name=""
-              required=""
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="input"
+              placeholder="Username"
+              required
             />
-            <label>e-mail</label>
+            <label>Username</label>
           </div>
           <div className="user-box">
             <input
               type="password"
-              name="userPassword"
               value={password}
-              placeholder="Your Password"
-              id="userPassword"
-              onChange={(event) => onChangeHandler(event)}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input"
+              placeholder="Password"
+              required
             />
             <label>Password</label>
           </div>
-          <p className="text-center my-3"  style={{display:'flex', justifyContent:'center'}}>
-          <a href="#">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-          </a>
-          <Link to="signUp">SignUp</Link> <br />{" "}
+          <p
+            className="text-center my-3"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <button type="submit" className="button">
+              <span>Start chatting</span>
+            </button>
+           
           </p>
         </form>
       </div>

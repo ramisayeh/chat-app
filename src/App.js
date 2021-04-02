@@ -5,7 +5,7 @@ import Dashboard from "./comps/dashboard.jsx";
 import "antd/dist/antd.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
-  const user = null;
+  if (!localStorage.getItem('username')) return <SignIn />;
 
   return (
     <Router>
