@@ -1,73 +1,83 @@
 import React, { useState } from "react";
 import sample from "../assets/video.mp4";
 import "./reg.css";
-import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [error, setError] = useState(null);
-  const createUserWithEmailAndPasswordHandler = (event, email, password) => {
-    event.preventDefault();
-    setEmail("");
-    setPassword("");
-    setDisplayName("");
+  var data = { username: username, secret: username };
+  
+
+  var config = {
+    method: "post",
+    url: "https://api.chatengine.io/users/",
+    headers: {
+      "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
+    },
+    data: data,
   };
-  const onChangeHandler = event => {
-    const { name, value } = event.currentTarget;
-    if (name === "userEmail") {
-      setEmail(value);
-    } else if (name === "userPassword") {
-      setPassword(value);
-    } else if (name === "displayName") {
-      setDisplayName(value);
-    }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        // window.location.replace("http://localhost:3000/signIn");
+        localStorage.setItem("userid", response.data.id);
+        console.log(response.data.id);
+
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
   };
+
   return (
     <div>
-        <video className="videoTag" style={{zIndex: -1}} autoPlay loop muted>
-          <source src={sample} type="video/mp4" />
-        </video>
-        <div id="tsparticles"></div>
-        <div className="login-box">
-          <h2>Register</h2>
-          <form>
-            <div className="user-box">
-              <input type="text"
-            className="my-1 p-1 w-full "
-            name="displayName"
-            value={displayName}
-            placeholder="E.g: Faruq"
-            id="displayName"
-            onChange={event => onChangeHandler(event)}  />
-              <label>Display Name:</label>
-            </div>
-            <div className="user-box">
-              <input type="text" name="" required="" />
-              <label>photo URL</label>
-            </div>
-            <div className="user-box">
-              <input type="password" name="" required="" />
-              <label>Password</label>
-            </div>
-            <p
-              className="text-center my-3"
-              style={{display:'flex', justifyContent:'center'}}
-            >
-              <a href="#">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Submit
-              </a>
-              <Link to="signIn">Sign in</Link> <br />{" "}
-            </p>
-          </form>
-        </div>
+      <video className="videoTag" style={{ zIndex: -1 }} autoPlay loop muted>
+        <source src={sample} type="video/mp4" />
+      </video>
+      <div id="tsparticles"></div>
+      <div className="login-box">
+        <h2>SignUp</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="user-box">
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="input"
+              placeholder="Username"
+              required
+            />
+            <label>Username</label>
+          </div>
+          <div className="user-box">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="input"
+              placeholder="Password"
+              required
+            />
+            <label>Password</label>
+          </div>
+          <p
+            className="text-center my-3"
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            <button type="submit" className="button">
+              <span>Start chatting</span>
+            </button>
+          </p>
+        </form>
       </div>
-  )
+    </div>
+  );
 }
 
-export default Register
+export default Register;

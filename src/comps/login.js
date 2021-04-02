@@ -1,39 +1,54 @@
 import React, { useState } from "react";
 import sample from "../assets/video.mp4";
 import "./login.css";
-
 import axios from "axios";
-
-const projectID = "589e180c-73a9-42e1-8c9e-61676d54116d";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const userid = localStorage.getItem('userid')
+  var data = { username: username, secret: username };
+  var config = {
+    method: "get",
+    url: "https://api.chatengine.io/users/",
+    headers: {
+      "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
+    },
+    data: data,
+  };
+  var data1 = { username: username, secret: username };
+  var config1 = {
+    method: "patch",
+    url: "https://api.chatengine.io/users/"+userid ,
+    headers: {
+      "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
+    },
+    data: data1,
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const authObject = {
-      "Project-ID": projectID,
-      "User-Name": username,
-      "User-Secret": password,
-    };
-
-    try {
-      await axios.get("https://api.chatengine.io/users/me/", {
-        headers: authObject,
+    axios(config1)
+      .then(function (response) {
+        console.log("done", JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
       });
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        localStorage.setItem("username", username);
+        localStorage.setItem("password", password);
 
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-
-      window.location.reload();
-      setError("");
-    } catch (err) {
-      setError("Oops, incorrect credentials.");
-    }
+        window.location.reload();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
   };
+
   return (
     <div>
       <video className="videoTag" style={{ zIndex: -1 }} autoPlay loop muted>
@@ -72,7 +87,6 @@ const Login = () => {
             <button type="submit" className="button">
               <span>Start chatting</span>
             </button>
-           
           </p>
         </form>
       </div>
