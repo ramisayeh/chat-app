@@ -11,7 +11,7 @@ const Login = () => {
 
 
   
-  var data = { username: username, secret: username };
+  var data = { username: username, secret: password };
   var config = {
     method: "get",
     url: "https://api.chatengine.io/users/",

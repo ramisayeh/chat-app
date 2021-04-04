@@ -6,31 +6,30 @@ import axios from "axios";
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const userid = localStorage.getItem('userid');
 
+  const userid = localStorage.getItem('userid');
+  console.log(userid)
 
-  // var data1 = { username: username };
-  // var config1 = {
-  //   method: "patch",
-  //   url: "https://api.chatengine.io/users/" + userid + "/",
-  //   headers: {
-  //     "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
-  //   },
-  //   data: data1,
-  // };
-  // const handleUpdate = async (e) => {
-  //   axios(config1)
-  //     .then(function (response) {
-  //       console.log("done", JSON.stringify(response.data));
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // };
+  var data1 = { username: username };
+  var config1 = {
+    method: "patch",
+    url: "https://api.chatengine.io/users/" + userid + "/",
+    headers: {
+      "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
+    },
+    data: data1,
+  };
+  const handleUpdate =  () => {
+    axios(config1)
+      .then(function (response) {
+        console.log("done", JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
-
-  var data = { username: username, secret: username };
-  
+  var data = { username: username, secret: password };
 
   var config = {
     method: "post",
@@ -50,12 +49,10 @@ function Register() {
         // window.location.replace("http://localhost:3000/signIn");
         localStorage.setItem("userid", response.data.id);
         console.log(response.data.id);
-
       })
       .catch(function (error) {
         console.log(error);
       });
-    
   };
 
   return (
@@ -66,7 +63,7 @@ function Register() {
       <div id="tsparticles"></div>
       <div className="login-box">
         <h2>SignUp</h2>
-        <form onSubmit={handleSubmit && handleUpdate} >
+        <form onSubmit={handleUpdate && handleSubmit}>
           <div className="user-box">
             <input
               type="text"
