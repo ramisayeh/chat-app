@@ -6,7 +6,11 @@ import axios from "axios";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const userid = localStorage.getItem('userid')
+ 
+
+
+
+  
   var data = { username: username, secret: username };
   var config = {
     method: "get",
@@ -16,25 +20,9 @@ const Login = () => {
     },
     data: data,
   };
-  var data1 = { username: username, secret: username };
-  var config1 = {
-    method: "patch",
-    url: "https://api.chatengine.io/users/"+userid ,
-    headers: {
-      "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
-    },
-    data: data1,
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios(config1)
-      .then(function (response) {
-        console.log("done", JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
@@ -46,8 +34,8 @@ const Login = () => {
       .catch(function (error) {
         console.log(error);
       });
-    
   };
+  
 
   return (
     <div>
@@ -57,7 +45,7 @@ const Login = () => {
       <div id="tsparticles"></div>
       <div className="login-box">
         <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <form  onSubmit={handleSubmit}>
           <div className="user-box">
             <input
               type="text"
@@ -95,3 +83,4 @@ const Login = () => {
 };
 
 export default Login;
+

@@ -6,6 +6,29 @@ import axios from "axios";
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // const userid = localStorage.getItem('userid');
+
+
+  // var data1 = { username: username };
+  // var config1 = {
+  //   method: "patch",
+  //   url: "https://api.chatengine.io/users/" + userid + "/",
+  //   headers: {
+  //     "PRIVATE-KEY": "ad2763c6-6525-474d-941d-ca87132847a2",
+  //   },
+  //   data: data1,
+  // };
+  // const handleUpdate = async (e) => {
+  //   axios(config1)
+  //     .then(function (response) {
+  //       console.log("done", JSON.stringify(response.data));
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // };
+
+
   var data = { username: username, secret: username };
   
 
@@ -43,7 +66,7 @@ function Register() {
       <div id="tsparticles"></div>
       <div className="login-box">
         <h2>SignUp</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit && handleUpdate} >
           <div className="user-box">
             <input
               type="text"
