@@ -7,7 +7,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
  
-
+  
 
 
   
@@ -45,7 +45,7 @@ const Login = () => {
       <div id="tsparticles"></div>
       <div className="login-box">
         <h2>Login</h2>
-        <form  onSubmit={handleSubmit}>
+        <form  onSubmit={ handleSubmit }>
           <div className="user-box">
             <input
               type="text"

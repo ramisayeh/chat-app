@@ -48,6 +48,7 @@ function Register() {
         console.log(JSON.stringify(response.data));
         // window.location.replace("http://localhost:3000/signIn");
         localStorage.setItem("userid", response.data.id);
+        window.location.replace('http://localhost:3000/signIn');
         console.log(response.data.id);
       })
       .catch(function (error) {
