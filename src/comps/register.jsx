@@ -6,7 +6,7 @@ import axios from "axios";
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  if (localStorage.getItem('username')) return <signIn/>;
   const userid = localStorage.getItem("userid");
   console.log(userid);
 
