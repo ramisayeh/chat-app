@@ -7,8 +7,8 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const userid = localStorage.getItem('userid');
-  console.log(userid)
+  const userid = localStorage.getItem("userid");
+  console.log(userid);
 
   var data1 = { username: username };
   var config1 = {
@@ -19,7 +19,7 @@ function Register() {
     },
     data: data1,
   };
-  const handleUpdate =  () => {
+  const handleUpdate = () => {
     axios(config1)
       .then(function (response) {
         console.log("done", JSON.stringify(response.data));
@@ -48,7 +48,7 @@ function Register() {
         console.log(JSON.stringify(response.data));
         // window.location.replace("http://localhost:3000/signIn");
         localStorage.setItem("userid", response.data.id);
-        window.location.replace('http://localhost:3000/signIn');
+        window.location.replace("/signIn");
         console.log(response.data.id);
       })
       .catch(function (error) {
